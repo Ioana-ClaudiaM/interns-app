@@ -12,7 +12,8 @@ html, body {
 
 .content {
   flex: 1; 
-  padding-top: 180px;
+  padding-top: 12%;
+  padding-left: 12%;
 }
 
 form{

@@ -10,8 +10,3 @@
     background-color: rgb(196, 151, 238);
 }
 
-.menu{
-    display: flex;
-    flex-direction:row;
-    gap: 5%;
-}
