@@ -6,7 +6,6 @@ function Authenticate() {
   const code = searchParams.get('code');
   const [response, setResponse] = useState(null);
   const [responseMessage, setResponseMessage] = useState('');
-  const navigate= useNavigate();
 
   const handleAuthenticate = async () => {
     console.log(code);
@@ -50,7 +49,6 @@ function Authenticate() {
   return (
     <div className='formular'>
       <h3>{responseMessage}</h3>
-      <button onClick={navigate('/')}>Go to the homepage</button>
     </div>
   );
 }
