@@ -10,6 +10,8 @@ function Sidebar() {
         <Link to="/" params={{pageName:'Home'}}>Home</Link>  
         <Link to="/contact" params={{pageName:'Contact'}}>Contact</Link>  
         <Link to="/about" params={{pageName:'About'}}>About</Link> 
+        <Link to="/register" params={{pageName:'Register'}}>Register</Link> 
+        <Link to="/login" params={{pageName:'Login'}}>Login</Link> 
         </div> 
       </div>
   )

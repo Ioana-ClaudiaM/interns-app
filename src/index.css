@@ -9,3 +9,14 @@ form{
   flex-direction: column;
   width: 50%;
 }
+
+.formular{
+  background-color: rgb(252, 210, 241);
+  width: 300px;
+  height: 300px;
+  place-items: center;
+  display: flex;
+  padding: 1%;
+  gap: 5px;
+  box-shadow: 10px 20px 30px rgb(195, 144, 240);
+}
