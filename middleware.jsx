@@ -1,25 +1,22 @@
-export const auth = async() => {
-    try{
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/me`,{
-            method:'GET',
-            headers:{
-                'Content-Type':'application/json',
+import axios from 'axios';
+
+export const auth = async () => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/me`, {
+            headers: {
+                'Content-Type': 'application/json',
             },
-            withCredentials:true,
-        })
+            withCredentials: true,
+        });
 
-        const data = await response.json();
-
-       
-        if (response.status === 200) {
-            return { success: true, message: 'You are logged in!' };
-        } else {
-            const errorMessage = data?.error || 'Unexpected error occurred.';
+        return { success: true, message: 'You are logged in!' };
+    } catch (error) {
+        if (error.response) {
+            const errorMessage = error.response.data?.error || 'Unexpected error occurred.';
             return { success: false, message: errorMessage };
+        } else {
+            console.error('Authentication failed', error);
+            return { success: false, message: 'Failed to authenticate. Please check your connection and try again.' };
         }
     }
-    catch (error) {
-        console.error(error);
-        return { success: false, message: 'Failed to authenticate. Please check your connection and try again.' };
-    }
-}
+};
