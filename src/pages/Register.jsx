@@ -1,48 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { registerAction } from '/actions'; 
+import { auth } from '../../middleware';
 
 function Register() {
-    const [email,setEmail]=useState('');
-    const [invalidError,setInvalidError]=useState('');
-    const [genericError,setGenericError]=useState('');
+    const [email, setEmail] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); 
 
-    const submitForm = async(event) => {
-        event.preventDefault();
-        try{
-            const response = await fetch('http://localhost:3000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                body: JSON.stringify({email}),
-            });
-
-            const data = await response.json();
-
-            if (response.status === 200) {
-                alert('A verification email with a code has been sent to you to complete your registration!');
-            }else if (response.status === 422) {
-                alert('Email is required.');
-              } else if (response.status === 500) {
-                alert('Something went wrong. Please try again later.');
-              } else {
-                alert('Unexpected error occurred.');
-              }
-            } catch (error) {
-              console.error('Authentication failed', error);
-              alert('Failed to authenticate. Please check your connection and try again.');
+    useEffect(() => {
+        const checkAuth = async () => {
+            const result = await auth(); 
+            if (result.success) {
+                setIsAuthenticated(true); 
+            } else {
+                setIsAuthenticated(false); 
             }
+            setLoading(false); 
+        };
+
+        checkAuth();
+    }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/'); 
+        }
+    }, [isAuthenticated, navigate]);
+
+    const submitForm = async (event) => {
+        event.preventDefault();
+        const result = await registerAction(email); 
+
+        if (result.success) {
+            alert(result.message);
+        } else {
+            setResponseMessage(result.message); 
+        }
+    };
+
+    if (loading) {
+        return <p>Loading...</p>;
     }
 
-  return (
-    <div className='formular'>
-      <p style={{color:'red'}}>{genericError}</p>
-      <label htmlFor="email">Email</label>
-      <input type="text" id='email' onChange={(e) =>setEmail(e.target.value)}/>
-      <p style={{color:'red'}}>{invalidError}</p>
-      <button onClick={submitForm}>Submit</button>
-    </div>
-  )
+    return (
+        <div className='formular'>
+            <p style={{ color: 'red' }}>{responseMessage}</p>
+            <label htmlFor="email">Email</label>
+            <input 
+                type="text" 
+                id='email' 
+                onChange={(e) => setEmail(e.target.value)} 
+                required
+            />
+            <button onClick={submitForm}>Submit</button>
+        </div>
+    );
 }
 
-export default Register
+export default Register;

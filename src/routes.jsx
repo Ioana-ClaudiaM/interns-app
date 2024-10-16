@@ -13,7 +13,7 @@ import UserLayout from './layouts/UserLayout.jsx';
 export default createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />, 
+    element: <UserLayout />, 
     errorElement: <ErrorPage />,
     children: [
       {
@@ -32,7 +32,7 @@ export default createBrowserRouter([
   },
   {
     path: '/',
-    element: <UserLayout />, 
+    element: <MainLayout/>, 
     children: [
       {
         path: 'register',

@@ -1,31 +1,18 @@
 import React, { useState } from 'react'
+import { loginAction } from '../../actions';
 
 function Login() {
   const [email, setEmail] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+
   const handleLogin = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-        body: JSON.stringify({ email }),
-      })
+    const result = await loginAction(email);
 
-      if (response.status === 200) {
-        alert('Please verify your email to complete the login process!');
-      } else if (response.status === 422) {
-        alert('Email is required.');
-      } else if (response.status === 500) {
-        alert('Something went wrong. Please try again later.');
-      } else {
-        alert('Unexpected error occurred.');
-      }
-    } catch (error) {
-      console.error('Login failed', error);
-      alert('Failed to login. Please check your connection and try again.');
+    if (result.success) {
+      alert(result.message);
+    } else {
+      setResponseMessage(result.message);
     }
   }
 

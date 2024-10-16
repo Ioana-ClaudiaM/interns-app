@@ -1,36 +1,35 @@
-import React from 'react'
-import { Outlet, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Outlet } from 'react-router-dom'; 
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Sidebar from '../partials/Sidebar';
 
-function UserLayout() {
-    const location = useLocation();
-    const pageName = location.pathname.substring(1) || 'Home';
-    return (
-
-        <div style={layoutStyle}>
-            <div style={{ display: 'flex', flex: 1 }}>
-                <main style={mainStyle}>
-                <h2>{pageName.charAt(0).toUpperCase() + pageName.substring(1)}</h2>
-                    <Outlet />
-                </main>
-            </div>
-        </div>
-    );
-}
+const UserLayout = () => {
+  return (
+    <div style={layoutStyle}>
+      <Header />
+      <div style={{ display: 'flex', flex: 1 }}> 
+        <Sidebar />
+        <main style={mainStyle}>
+          <Outlet />
+        </main>
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
 const layoutStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-    backgroundColor:' rgb(144, 240, 186)'
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
 };
 
 const mainStyle = {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection:'column'
+  flex: 1,
+  paddingTop: '12%',
+  paddingLeft: '12%',
 }
-    ;
+;
 
-export default UserLayout
+export default UserLayout;
