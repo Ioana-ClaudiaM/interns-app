@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { createUserAction } from '../../actions';
+import { auth } from '../../middleware';
 
 function CreateUser() {
     const [searchParams] = useSearchParams();
@@ -8,6 +9,21 @@ function CreateUser() {
     const [name,setName] =useState('');
     const [responseMessage, setResponseMessage] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userAuth = async () => {
+            const result = await auth();
+            if (result.success) {
+                setTimeout(() => {
+                    navigate('/');
+                }, 500);
+            } else {
+                console.log('You are not logged in!')
+            }
+        };
+
+        userAuth();
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

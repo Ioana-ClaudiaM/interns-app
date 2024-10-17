@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios  from "axios";
 export const auth = async () => {
     try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/me`, {
@@ -11,12 +10,12 @@ export const auth = async () => {
 
         return { success: true, message: 'You are logged in!' };
     } catch (error) {
-        if (error.response) {
-            const errorMessage = error.response.data?.error || 'Unexpected error occurred.';
-            return { success: false, message: errorMessage };
+        if (error.response && error.response.status === 401) {
+            return { success: false, message: 'unauthenticated' }; 
         } else {
+            const errorMessage = error.response?.data?.error || 'Unexpected error occurred.';
             console.error('Authentication failed', error);
-            return { success: false, message: 'Failed to authenticate. Please check your connection and try again.' };
+            return { success: false, message: errorMessage };
         }
     }
 };
