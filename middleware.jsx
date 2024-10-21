@@ -14,7 +14,6 @@ export const auth = async () => {
             return { success: false, message: 'unauthenticated' }; 
         } else {
             const errorMessage = error.response?.data?.error || 'Unexpected error occurred.';
-            console.error('Authentication failed', error);
             return { success: false, message: errorMessage };
         }
     }

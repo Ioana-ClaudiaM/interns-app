@@ -9,6 +9,7 @@ import CreateUser from './pages/CreateUser.jsx';
 import Login from './pages/Login.jsx';
 import Authenticate from './pages/Authenticate.jsx';
 import UserLayout from './layouts/UserLayout.jsx'; 
+import Connect from './pages/Connect.jsx';
 
 export default createBrowserRouter([
   {
@@ -27,6 +28,10 @@ export default createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: 'connect',
+        element: <Connect />,
       },
     ],
   },

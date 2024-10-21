@@ -31,6 +31,8 @@ export const logoutLoader = async () => {
     return { success: false, message: 'You are not logged in.' };
   }
 
+  else
+{
   try {
     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`, 
       {}, 
@@ -52,4 +54,5 @@ export const logoutLoader = async () => {
       return { success: false, message: 'Failed to log out. Please check your connection and try again.' };
     }
   }
+}
 };

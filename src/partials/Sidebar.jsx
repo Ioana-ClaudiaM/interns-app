@@ -26,6 +26,7 @@ function Sidebar() {
         <Link to="/about" params={{pageName:'About'}}>About</Link> 
         <Link to="/register" params={{pageName:'Register'}}>Register</Link> 
         <Link to="/login" params={{pageName:'Login'}}>Login</Link> 
+        <Link to="/connect" params={{pageName:'Connect'}}>Connect</Link> 
         <br></br>
         <button onClick={handleLogout}>Logout</button>
         </div> 
