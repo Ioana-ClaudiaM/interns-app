@@ -1,21 +1,11 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './Sidebar.css'
-import { logoutLoader } from '../../loaders';
 
 function Sidebar() {
   const navigate=useNavigate();
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
-    const result = await logoutLoader();
-    if (result.success) {
-        alert(result.message);
-        navigate('/register');
-    } else {
-        alert(result.message);
-    }
-};
+ 
 
   return (
     <div className='menu'>
@@ -28,7 +18,7 @@ function Sidebar() {
         <Link to="/login" params={{pageName:'Login'}}>Login</Link> 
         <Link to="/connect" params={{pageName:'Connect'}}>Connect</Link> 
         <br></br>
-        <button onClick={handleLogout}>Logout</button>
+        <button>Logout</button>
         </div> 
       </div>
   )
