@@ -3,12 +3,12 @@ import { Form, useSearchParams } from 'react-router-dom';
 
 function CreateUser() {
     const [searchParams] = useSearchParams();
-    const code = searchParams.get('code'); // Obține codul din query params
+    const code = searchParams.get('code'); 
     const [name, setName] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
 
     const handleNameChange = (e) => {
-        setName(e.target.value); // Actualizează valoarea name
+        setName(e.target.value); 
     };
 
     return (
@@ -23,7 +23,7 @@ function CreateUser() {
                         id='name' 
                         name='name' 
                         value={name} 
-                        onChange={handleNameChange} // Handler pentru actualizarea numelui
+                        onChange={handleNameChange}
                     />
                     <button type='submit'>Submit</button>
                 </Form>

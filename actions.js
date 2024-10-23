@@ -14,16 +14,16 @@ export const loginAction = async ({ request }) => {
     }
 }
 
-export const logoutAction = async ({ request }) => {
+export const logoutAction = async () => {
     await logout();
     return redirect('/');
 }
 
-export const createUserAction = async ({ request }) => { // Trebuie să primești `request`
+export const createUserAction = async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     
-    console.log(data); // Verifică dacă datele sunt transmise corect
+    console.log(data); 
     
     try {
         await createUser({ name: data.name, code: data.code });
@@ -44,7 +44,8 @@ export const registerAction = async ({ request }) => {
         return redirect('/create-user');
     } catch (err) {
         console.log('Eroare de la server:', err.response?.data.error);
-    }
+   return null;
+     }
 };
 
 

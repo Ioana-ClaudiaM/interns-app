@@ -5,8 +5,8 @@ const client = axios.create({
 })
  client.defaults.withCredentials = true
 
- export const authenticate = async() => {
-    return await client.post('/authenticate')
+ export const authenticate = async(payload) => {
+    return await client.post('/authenticate',payload)
  }
 
  export const createUser = async(payload) => {
@@ -25,7 +25,7 @@ const client = axios.create({
     return await client.post('/logout')
  }
 
- export const me = async() => {
-    const {data} = await client.get('/me');
-    return data
- }
+ export const me = async () => {
+   const { data } = await client.get('/me');
+   return data;
+};

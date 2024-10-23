@@ -10,34 +10,35 @@ import Login from './pages/Login.jsx';
 import Authenticate from './pages/Authenticate.jsx';
 import UserLayout from './layouts/UserLayout.jsx';
 import Connect from './pages/Connect.jsx';
-import { meMiddleware } from '../middleware.js';
-import { me } from './api.js';
+import { authRedirectMiddleware, meMiddleware } from '../middleware.js';
 import { createUserAction, loginAction, registerAction } from '../actions.js';
-import { authenticateLoader } from '../loaders.jsx';
+import { authenticateLoader } from '../loaders.js';
 
 export default createBrowserRouter([
   {
     path: '/',
     element: <UserLayout />,
     errorElement: <ErrorPage />,
-    handle:meMiddleware,
     children: [
       {
         index: true,
         element: <HomePage />,
-        loader: async () => me()
+        loader: meMiddleware,  
       },
       {
         path: 'contact',
         element: <Contact />,
+        loader: meMiddleware,  
       },
       {
         path: 'about',
         element: <About />,
+        loader: meMiddleware,  
       },
       {
         path: 'connect',
         element: <Connect />,
+        loader: meMiddleware,  
       },
     ],
   },
@@ -49,21 +50,25 @@ export default createBrowserRouter([
         path: 'register',
         element: <Register />,
         action:registerAction,
+        loader: authRedirectMiddleware,  
       },
       {
         path: 'create-user',
         element: <CreateUser />,
         action:createUserAction,
+        loader: authRedirectMiddleware,  
       },
       {
         path: 'login',
         element: <Login />,
         action:loginAction,
+        loader: authRedirectMiddleware,  
       },
       {
         path: 'authenticate',
         element: <Authenticate />,
-        loader:authenticateLoader,
+        action:authenticateLoader,
+        loader: authRedirectMiddleware,  
       },
     ],
   },
